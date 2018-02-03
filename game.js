@@ -5,6 +5,10 @@ var playerRect;
 var playerImg;
 var pickupImg;
 
+// Desired x and y location of the player
+var desiredX = 0;
+var desiredY = 0;
+
 // Pre load function
 function preload() {
     
@@ -33,26 +37,18 @@ function draw() {
     // Draw a rectangle
     drawSprite(playerImg, playerRect);
     
-    // Check key presses
-    if(keyIsDown(LEFT_ARROW)) {
-        
-        //Move the player
-        playerRect.x -= 1;
+    // Check if the player is at the desired location
+    if (playerRect.x > desiredX) {
+        playerRect.x -= 2;
     }
-    if(keyIsDown(RIGHT_ARROW)) {
-        
-        //Move the player
-        playerRect.x += 1;
+    if (playerRect.x < desiredX) {
+        playerRect.x += 2;
     }
-    if(keyIsDown(UP_ARROW)) {
-        
-        //Move the player
-        playerRect.y -= 1;
+    if (playerRect.y > desiredY) {
+        playerRect.y -= 2;
     }
-    if(keyIsDown(DOWN_ARROW)) {
-        
-        //Move the player
-        playerRect.y += 1;
+    if (playerRect.y < desiredY) {
+        playerRect.y += 2;
     }
     
 }
@@ -89,5 +85,14 @@ function imgGetRect(img) {
     
     // Return a rectangle at 0,0 with width and height of image
     return Rectangle(0, 0, img.width, img.height, -1);
+    
+}
+
+// Check for mouse click
+function mousePressed() {
+    
+    // Set the desired x and y of the player
+    desiredX = mouseX -= playerRect.width / 2;
+    desiredY = mouseY -= playerRect.height / 2;
     
 }
